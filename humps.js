@@ -11,7 +11,7 @@
 ;(function(global) {
 
   var _processKeys = function(convert, obj, options) {
-    if(!_isObject(obj) || _isDate(obj) || _isRegExp(obj) || _isBoolean(obj) || _isFunction(obj)) {
+    if(!_isObject(obj) || _isDate(obj) || _isRegExp(obj) || _isBoolean(obj) || _isFunction(obj) || _isBuffer(obj)) {
       return obj;
     }
 
@@ -90,6 +90,10 @@
   var _isBoolean = function(obj) {
     return toString.call(obj) == '[object Boolean]';
   };
+  var _isBuffer = function(obj){
+    // https://github.com/feross/is-buffer/blob/master/index.js
+    return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
+  }
 
   // Performant way to determine if obj coerces to a number
   var _isNumerical = function(obj) {

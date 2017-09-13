@@ -212,6 +212,19 @@ describe('humps', function() {
       });
     });
 
+    describe("when the value is a Buffer", function() {
+      it('converts the key and assigns the Buffer', function() {
+        var myBuffer = Buffer.from('', 'utf-8')
+        var _object = {
+          aBuffer: myBuffer
+        };
+
+        var result = humps.decamelizeKeys(_object);
+        // deepEqual treats functions as the same as an empty object
+        assert.strictEqual(result.a_buffer, myBuffer);
+      });
+    });
+
     it('uses a custom convertion callback as an option', function() {
       actual = humps.decamelizeKeys(this.simpleCamelObj, {
         process: function(key, convert, options) {
